@@ -8,7 +8,7 @@
                 "command": "lovec"
             },
             "args": [ "${workspaceFolder}",
-                        "vsc_debug"]
+                        "vsc_debug","test"],
         }
     ]
 }
