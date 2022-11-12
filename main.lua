@@ -10,7 +10,6 @@ function love.load()
 end
 
 function love.update(dt)
-    if _G.paused == false then
         if _G.x < 20 then
             _G.x = _G.x + 1 + (15 * dt)
         end
@@ -29,7 +28,6 @@ function love.update(dt)
             _G.y = 0
             love.graphics.clear(love.graphics.getBackgroundColor())
         end
-    end
 end
 
 function love.keypressed(key)
@@ -43,18 +41,14 @@ function love.keypressed(key)
 end
 
 function love.draw()
-    if _G.paused == false then
         love.graphics.draw(image, love.math.random(0, _G.x), love.math.random(0, _G.y))
         duckNumber = duckNumber + 1
         love.window.setTitle("Whack-a-duck count: " .. tostring(duckNumber))
-    end
 end
 
 
 function love.run()
-    if love.math then
-	love.math.setRandomSeed(os.time())
-    end
+    if love.math then love.math.setRandomSeed(os.time()) end
 
     if love.load then love.load(arg) end
 
@@ -97,11 +91,11 @@ function love.run()
      end
 
 	-- Call update and draw
-	if love.update then love.update(dt) end -- will pass 0 if love.timer is disabled
+	if love.update and _G.paused == false then love.update(_G.dt) end -- will pass 0 if love.timer is disabled
 
 	if love.graphics and love.graphics.isActive() then
 	    love.graphics.origin()
-            if love.draw then love.draw() end
+            if love.draw and _G.paused == false then love.draw() end
 	    love.graphics.present()
 	end
 
