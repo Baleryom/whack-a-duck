@@ -5,10 +5,28 @@ _G.x = 0
 _G.y = 0
 _G.paused = false
 local duckNumber = 0
+Object = require 'libraries/classic/classic'
+require 'objects/Test'
+
 function love.load()
+    test_instance = Test()
     frame = 0
     love.window.setMode(800, 600, { resizable = true, vsync = 1, minheight = 300 })
-    image = love.graphics.newImage('image.png')
+    psyduck = love.graphics.newImage('images/psyduck.png')
+    altaria = love.graphics.newImage('images/altaria.png')
+    charizard = love.graphics.newImage('images/charizard.png')
+    crobat = love.graphics.newImage('images/crobat.png')
+    drifloon = love.graphics.newImage('images/drifloon.png')
+    electrode = love.graphics.newImage('images/electrode.png')
+    escavalier = love.graphics.newImage('images/escavalier.png')
+    gengar = love.graphics.newImage('images/gengar.png')
+    houndoom = love.graphics.newImage('images/houndoom.png')
+    machamp = love.graphics.newImage('images/machamp.png')
+    mewtwo = love.graphics.newImage('images/mewtwo.png')
+    pikachu = love.graphics.newImage('images/pikachu.png')
+    rhydon = love.graphics.newImage('images/rhydon.png')
+    talonflame = love.graphics.newImage('images/talonflame.png')
+    images = {psyduck,altaria,charizard,crobat,drifloon,electrode,escavalier,gengar,houndoom,machamp,mewtwo,pikachu,rhydon,talonflame}
 end
 
 function love.update(dt)
@@ -45,7 +63,8 @@ function love.keypressed(key)
 end
 
 function love.draw()
-    love.graphics.draw(image, love.math.random(0, _G.x), love.math.random(0, _G.y))
+    random_number = math.random(1,14)
+    love.graphics.draw(images[random_number], love.math.random(0, _G.x), love.math.random(0, _G.y))
     duckNumber = duckNumber + 1
     love.window.setTitle("Whack-a-duck count: " .. tostring(duckNumber) .. " FPS: " .. tostring(frame))
 end
@@ -78,6 +97,21 @@ function love.run()
             dt = dt - current_dt
         end
     ]]
+
+
+    --[[
+        Free physics
+        local dt = 0
+        local fixed_dt = 1/60
+        local acumulator = 0
+
+        accumulator = accumulator + dt
+        while accumulator >= fixed_dt do
+            if love.update then love.update(fixed_dt) end
+            accumulator = accumulator - fixed_dt
+        end
+    --]]
+
 
     local consecutiveLargeDts = 0
     local nextTime = 0
